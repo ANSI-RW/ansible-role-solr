@@ -2,13 +2,13 @@
 
 [![Build Status](https://img.shields.io/travis/rwanyoike/ansible-role-solr.svg)](https://travis-ci.org/rwanyoike/ansible-role-solr) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/rwanyoike/ansible-role-solr/master/LICENSE)
 
-Installs and configures [Apache Solr]() on RHEL/CentOS ~~or Debian/Ubuntu~~.
+Installs and configures [Apache Solr](https://lucene.apache.org/solr/) on RHEL/CentOS ~~or Debian/Ubuntu~~.
 
-Currently tested with Solr 5.x.
+Tested with Solr 5.x.
 
 ## Requirements
 
-- Java. You can easily install Java using the [`rwanyoike.java`](https://github.com/rwanyoike/ansible-role-java) role.
+- Java. You can easily install Java using the [rwanyoike.java](https://github.com/rwanyoike/ansible-role-java) role.
 
 ## Role Variables
 
@@ -19,7 +19,7 @@ Available variables are listed below, along with default values (see `defaults/m
 solr_version: 5.3.1
 ```
 
-See [https://github.com/influxdb/influxdb/tags](https://github.com/influxdb/influxdb/tags) for a listing of available versions (e.g. `5.2.9`, `5.3.1`).
+See [https://www.us.apache.org/dist/lucene/solr/](https://www.us.apache.org/dist/lucene/solr/) for a listing of available versions (e.g. `5.2.1`, `5.3.1`).
 
 ```yaml
 # Directory to extract the Solr installation archive
@@ -36,13 +36,11 @@ solr_service: solr
 solr_bind_port: 8983
 ```
 
-Solr includes a [service installation script](https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production#TakingSolrtoProduction-ServiceInstallationScript) (`bin/install_solr_service.sh`) to help install Solr as a service on Linux.
-
-The script creates a symbolic link to the versioned directory of Solr. For instance, if you run the role with `solr_version: 5.3.0`, then the following directory structure will be used:
+Solr includes a [service installation script](https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production#TakingSolrtoProduction-ServiceInstallationScript) (`bin/install_solr_service.sh`) to help install Solr as a service on Linux. The script creates a symbolic link to the versioned directory of Solr. For instance, if you run the role with `solr_version: 5.2.1`, then the following directory structure will be used:
 
 ```
-/opt/solr-5.3.0
-/opt/solr -> /opt/solr-5.3.0
+/opt/solr-5.2.1
+/opt/solr -> /opt/solr-5.2.1
 ```
 
 Using a symbolic link insulates any scripts from being dependent on the specific Solr version.
@@ -67,7 +65,7 @@ None
 Inside `vars/main.yml:`
 
 ```yaml
-solr_version: 5.3.0
+solr_version: 5.2.1
 
 # ... etc ...
 ```
