@@ -1,0 +1,16 @@
+---
+# Version that should be installed
+solr_version: 5.3.1
+
+# Directory to extract the Solr installation archive
+solr_install_dir: /opt
+# Directory for live / writable Solr files
+solr_write_dir: /var/solr
+
+# User to own the Solr files and run the Solr process
+solr_user: solr
+# Service name
+solr_service: solr
+
+# Port Solr should bind to
+solr_bind_port: 8983

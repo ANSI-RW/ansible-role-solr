@@ -1,0 +1,36 @@
+---
+- name: Create Solr install dir.
+  file: path="{{ solr_install_dir }}" state=directory owner=root group=root
+
+- include: setup-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Download Solr.
+  get_url:
+    url: http://www.us.apache.org/dist/lucene/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz
+    dest: /tmp/solr-{{ solr_version }}.tgz
+    mode: 0440
+
+- name: Extract bin/install_solr_service.sh.
+  command: >
+    tar xzf solr-{{ solr_version }}.tgz solr-{{ solr_version }}/bin/install_solr_service.sh
+    --strip-components=2
+    creates=/tmp/install_solr_service.sh
+    chdir=/tmp
+
+- name: Install Solr.
+  command: >
+    ./install_solr_service.sh /tmp/solr-{{ solr_version }}.tgz
+    -i {{ solr_install_dir }}
+    -d {{ solr_write_dir }}
+    -p {{ solr_bind_port }}
+    -s {{ solr_service }}
+    -u {{ solr_user }}
+    creates={{ solr_install_dir }}/solr-{{ solr_version }}/bin/solr
+    chdir=/tmp
+  # FIXME: install_solr_service.sh starts Solr, without notifying systemd.
+  # `systemctl start/stop` will fail with a "port in use" error.
+  # notify: restart solr
+
+- name: Enable Solr.
+  service: name={{ solr_service }} enabled=yes

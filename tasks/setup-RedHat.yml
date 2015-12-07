@@ -1,0 +1,6 @@
+---
+- name: Install Solr dependencies.
+  yum: name={{ item }} state=present
+  with_items:
+    - lsof
+    - unzip
