@@ -29,7 +29,7 @@
     creates={{ solr_install_dir }}/solr-{{ solr_version }}/bin/solr
     chdir=/tmp
   # FIXME: install_solr_service.sh starts Solr, without notifying systemd.
-  # `systemctl start/stop` will fail with a "port in use" error.
+  # `systemctl start` will fail with a "port in use" error.
   # notify: restart solr
 
 - name: Enable Solr.
